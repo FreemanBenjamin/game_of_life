@@ -13,29 +13,29 @@ living neighbors.
 seed_list = {'blinker': [[0, 1, 0],
                          [0, 1, 0],
                          [0, 1, 0]],
-             'beacon': [[1, 1, 0, 0],
-                        [1, 1, 0, 0],
-                        [0, 0, 1, 1],
-                        [0, 0, 1, 1]],
-             'pulsar': [[0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]],
-            'glider':  [[1, 0, 1],
-                        [0, 1, 1],
-                        [0, 1, 0]],
-            'r-pentomino': [[0, 1, 1],
-                            [1, 1, 0],
-                            [0, 1, 0]],
+             'beacon':  [[1, 1, 0, 0],
+                         [1, 1, 0, 0],
+                         [0, 0, 1, 1],
+                         [0, 0, 1, 1]],
+             'pulsar':  [[0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]],
+             'glider':  [[1, 0, 1],
+                         [0, 1, 1],
+                         [0, 1, 0]],
+             'r-pentomino': [[0, 1, 1],
+                             [1, 1, 0],
+                             [0, 1, 0]],
              'spaceship': [[0, 1, 0, 0, 1],
                            [1, 0, 0, 0, 0],
                            [1, 0, 0, 0, 1],
@@ -49,13 +49,13 @@ seed_list = {'blinker': [[0, 1, 0],
 
 
 # Find number of nearest neighbors to determine if cell lives or dies
-def check_for_life(x,y):
-    neighbors = np.sum(grid[x-1:x+2, y-1:y+2]) - grid[x,y]
-    if grid[x,y] and not 2 <= neighbors <= 3:
+def check_for_life(x, y):
+    neighbors = np.sum(grid[x-1:x+2, y-1:y+2]) - grid[x, y]
+    if grid[x, y] and not 2 <= neighbors <= 3:
         return 0
     elif neighbors == 3:
         return 1
-    return grid[x,y]
+    return grid[x, y]
 
 
 # Create new generation based on previous grid and set as the new primary grid
@@ -64,7 +64,7 @@ def generations():
     grid_update = np.copy(grid)
     for x in range(grid.shape[0]):
         for y in range(grid.shape[1]):
-            grid_update[x,y] = check_for_life(x,y)
+            grid_update[x, y] = check_for_life(x, y)
 
     grid = np.copy(grid_update)
 
@@ -73,14 +73,17 @@ status = True
 while status:
     grid_size = int(input('Please input an integer of the grid size to display (nxn, recommend less than 100): '))
     num_gens = int(input('Please input how many generations you would like to see: '))
-    seed = input('Please choose a seed from the list (blinker, beacon, pulsar, glider, r-pentomino, spaceship,'
-                 ' L-pattern): ')
+    try:
+        seed = input('Please choose a seed from the list (blinker, beacon, pulsar, glider, r-pentomino, spaceship,'
+                     ' L-pattern): ')
+    except KeyError:
+        print('Please type an exact seed from the list')
     x_start = int(input('Starting x position (integer between 0 and ' + str(grid_size) + ')?: '))
     y_start = int(input('Starting y position (integer between 0 and ' + str(grid_size) + ')?: '))
     grid = np.zeros((grid_size, grid_size))
     seed_format = np.array(seed_list[seed])
     try:
-        grid[x_start:seed_format.shape[0]+x_start,y_start:seed_format.shape[1]+y_start] = seed_format
+        grid[x_start:seed_format.shape[0]+x_start, y_start:seed_format.shape[1]+y_start] = seed_format
         status = False
     except ValueError:
         print("I'm sorry, please choose a larger grid size for this seed.")
@@ -93,11 +96,16 @@ plt.axis('off')
 gens = []
 for i in range(num_gens):
     title = plt.text(1, -1, 'Generation ' + str(i))
-    gens.append((plt.imshow(grid, cmap = 'winter'), title,))
+    gens.append((plt.imshow(grid, cmap='winter'), title,))
     generations()
 
-# displays figures sequentially until number of generations is complete and then repeats
-gens_animation = animation.ArtistAnimation(fig, gens, interval=200, blit=False)
+# creates animation of generations
+gens_animation = animation.ArtistAnimation(fig, gens, interval=1000, blit=False)
+
+# sets up the video writer and saves file to current project directory
+plt.rcParams['animation.ffmpeg_path'] = 'C:\\ffmpeg\\bin\\ffmpeg.exe'
+writer = animation.FFMpegWriter(fps = 1, extra_args = ['-vcodec','libx264'])
+gens_animation.save((str(seed) + '.mp4'), writer = writer)
+
+# shows animation loop
 plt.show()
-
-
