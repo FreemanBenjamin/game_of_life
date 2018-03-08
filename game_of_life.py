@@ -44,7 +44,12 @@ seed_list = {'blinker': [[0, 1, 0],
                            [1, 0],
                            [1, 0],
                            [1, 1],
-                           [1, 1]]
+                           [1, 1]],
+             'X-pattern': [[1, 0, 0, 0, 1],
+                           [0, 1, 0, 1, 0],
+                           [0, 0, 1, 0, 0],
+                           [0, 1, 0, 1, 0],
+                           [1, 0, 0, 0, 1]]
              }
 
 
@@ -75,7 +80,7 @@ while status:
     num_gens = int(input('Please input how many generations you would like to see: '))
     try:
         seed = input('Please choose a seed from the list (blinker, beacon, pulsar, glider, r-pentomino, spaceship,'
-                     ' L-pattern): ')
+                     ' L-pattern, X-pattern): ')
     except KeyError:
         print('Please type an exact seed from the list')
     x_start = int(input('Starting x position (integer between 0 and ' + str(grid_size) + ')?: '))
