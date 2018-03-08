@@ -100,11 +100,11 @@ for i in range(num_gens):
     generations()
 
 # creates animation of generations
-gens_animation = animation.ArtistAnimation(fig, gens, interval=1000, blit=False)
+gens_animation = animation.ArtistAnimation(fig, gens, interval=200, blit=False)
 
 # sets up the video writer and saves file to current project directory
 plt.rcParams['animation.ffmpeg_path'] = 'C:\\ffmpeg\\bin\\ffmpeg.exe'
-writer = animation.FFMpegWriter(fps = 1, extra_args = ['-vcodec','libx264'])
+writer = animation.FFMpegWriter(fps = 5, extra_args = ['-vcodec','libx264'])
 gens_animation.save((str(seed) + '.mp4'), writer = writer)
 
 # shows animation loop
